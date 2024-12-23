@@ -1,0 +1,23 @@
+name: Build code, run unit test, run SAST, SCA, DAST security scans for NodeJs App
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Run unit tests and SAST scan on the source code 
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: npm
+    - run: npm install
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.organization=compliance-app-sample
+          -Dsonar.projectKey=hello-compliance-app
