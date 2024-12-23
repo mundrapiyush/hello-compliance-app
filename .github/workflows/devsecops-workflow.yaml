@@ -1,7 +1,7 @@
 name: Example workflow for Node using Snyk
 on: push
 jobs:
-  compliance-checks:
+  scans:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -9,12 +9,8 @@ jobs:
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-  status-scan:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v4.2.1
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4.2.1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
