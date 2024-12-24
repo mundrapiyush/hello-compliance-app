@@ -1,0 +1,8 @@
+name: hello-world
+on: push
+jobs:
+  my-job:
+    runs-on: icr.io/continuous-delivery/toolchains/devsecops/baseimage:3.64.3_commons-1.24.0@sha256:58aca32216ed1698e830324e2ff2e7a20b5c26f87075be823c2d83fb4fcda607
+    steps:
+      - name: my-step
+        run: echo "Hello World!"
